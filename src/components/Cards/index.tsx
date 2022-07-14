@@ -3,21 +3,24 @@ import { Div } from './styles'
 export default function Cards() {
   // console.log(process.env.API_KEY)
   async function getDataFromGoogle() {
-    const options = {
-      method: 'GET',
-      headers: {
-        'X-RapidAPI-Key': '2f233afcddmsh77dbdc7d5bddd45p1a7087jsn56b944065b55',
-        'X-RapidAPI-Host': 'google-news1.p.rapidapi.com'
-      }
-    }
+    const myHeaders = new Headers()
+    myHeaders.append(
+      'X-RapidAPI-Key',
+      '2f233afcddmsh77dbdc7d5bddd45p1a7087jsn56b944065b55'
+    )
+    myHeaders.append('X-RapidAPI-Host', 'google-news.p.rapidapi.com')
 
     fetch(
-      'https://google-news1.p.rapidapi.com/list-languages?country=%3CREQUIRED%3E',
-      options
+      'https://google-news.p.rapidapi.com/v1/top_headlines?lang=pt-br&country=US',
+      {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+      }
     )
-      .then(response => response.json())
-      .then(response => console.log(response))
-      .catch(err => console.error(err))
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error))
     // const apiKey = process.env.API_KEY
     // const apiHost = process.env.API_HOST
 
@@ -45,7 +48,25 @@ export default function Cards() {
     <Div>
       <div className="cards">
         <ol>
-          <li></li>
+          <li>
+            <div className="main-container">
+              <div className="cards">
+                <div className="card card-4">
+                  <div className="card__icon">
+                    <i className="fas fa-bolt"></i>
+                  </div>
+                  <h2 className="card__title">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  </h2>
+                  <p className="card__apply">
+                    <a className="card__link" href="#">
+                      Ver Completa <i className="fas fa-arrow-right"></i>
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </li>
         </ol>
       </div>
     </Div>
